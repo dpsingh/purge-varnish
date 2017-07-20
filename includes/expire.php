@@ -107,7 +107,7 @@ if (!empty($purge_varnish_expire)) {
                   if ($post_status == 'transition_post_status') {
                     print 'checked="checked"';
                   }
-                  ?> /> <label><?php esc_html_e('Post status changed'); ?></label> <br /><span class="desc"><?php esc_html_e('Trigger when approved post is going to changed from unpublish to publish OR publish to unpublish.'); ?></span><br />
+                  ?> /> <label><?php esc_html_e('Post status changed'); ?></label> <br /><span class="desc"><?php esc_html_e('Trigger when post is published/unpublished.'); ?></span><br />
 
                   <input type="checkbox" name="purge_varnish_action[post_trash]" value="wp_trash_post" <?php
                   if ($post_trash == 'wp_trash_post') {
@@ -179,7 +179,7 @@ if (!empty($purge_varnish_expire)) {
                   if ($comment_status_changed == 'transition_comment_status') {
                     print 'checked="checked"';
                   }
-                  ?> /> <label><?php esc_html_e('Comment status changed'); ?></label> <br /><span class="desc"><?php esc_html_e('Trigger when comment status is changed from approved to unapproved OR unapproved to approved.'); ?></span><br />
+                  ?> /> <label><?php esc_html_e('Comment status changed'); ?></label> <br /><span class="desc"><?php esc_html_e('Trigger when comment is approved/unapproved.'); ?></span><br />
                   
                   <input type="checkbox" name="purge_varnish_action[comment_trash]" value="trash_comment" <?php
                   if ($comment_trash == 'trash_comment') {
