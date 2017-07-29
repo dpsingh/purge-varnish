@@ -39,22 +39,21 @@ class Purge_Varnish {
      * Actions perform at loading of admin menu
      */
     function purge_varnish_add_menu() {
-        add_menu_page('Purge Varnish', 'Purge Varnish', 'manage_options', 'purge-varnish-settings', array(
-          __CLASS__, 'purge_varnish_page_file_path'), plugins_url('images/purge16x16.png', __FILE__), '2.2.9');
+        add_menu_page('Purge Varnish', 'Purge Varnish', 'manage_options', 'purge-varnish-settings', array($this, 'purge_varnish_page_file_path'), plugins_url('images/purge16x16.png', __FILE__), '2.2.9');
 
         if (current_user_can('manage_options')) {
             add_submenu_page('purge-varnish-settings', 'Terminal', 'Terminal', 'manage_options', 'purge-varnish-settings', array(
-              __CLASS__, 'purge_varnish_page_file_path'));
+             $this, 'purge_varnish_page_file_path'));
             add_submenu_page('purge-varnish-settings', 'Purge all', 'Purge all', 'manage_options', 'purge-varnish-all', array(
-              __CLASS__, 'purge_varnish_page_file_path'));
+              $this, 'purge_varnish_page_file_path'));
 
             add_submenu_page('purge-varnish-settings', 'Expire', 'Expire', 'manage_options', 'purge-varnish-expire', array(
-              __CLASS__, 'purge_varnish_page_file_path'));
+              $this, 'purge_varnish_page_file_path'));
         }
 
         if (current_user_can('edit_posts')) {
             add_submenu_page('purge-varnish-settings', 'Purge URLs', 'Purge URLs', 'edit_posts', 'purge-varnish-urls', array(
-              __CLASS__, 'purge_varnish_page_file_path'));
+              $this, 'purge_varnish_page_file_path'));
         }
     }
 
@@ -598,10 +597,11 @@ class Purge_Varnish {
         $this->purge_varnish_trigger_post_expire($post);
     }
 
-     /*
+    /*
      * Callback to purge post object on comment status changed form 
      * approved => unapproved or unapproved => approved.
      */
+
     function purge_varnish_comment_status_trigger($new_status, $old_status, $comment) {
         // Cause with wp_update_nav_menu
         if ($new_status == $old_status) {
@@ -717,25 +717,6 @@ class Purge_Varnish {
     }
 
     /*
-     * Callback to purge various type of varnish objects on approvved comment edited.
-     */
-
-    function purge_varnish_comment_trash_trigger($ID) {
-        $comment = get_comment($ID);
-        if (!is_object($comment)) {
-            return;
-        }
-
-        $post_id = $comment->comment_post_ID;
-        $post = get_post($ID);
-        if (is_object($comment) && $comment->comment_approved <> 1 && $post->post_status <> 'publish') {
-            return;
-        }
-        // Callback to purge
-        $this->purge_varnish_trigger_comment_expire($comment, $post);
-    }
-
-    /*
      * Callback trigger to purge nav menu items.
      */
 
@@ -834,7 +815,6 @@ class Purge_Varnish {
     function purge_varnish_sanitize_actions($post) {
         $default_actions = $this->purge_varnish_default_actions();
         $additional_actions = array(
-          'comment_trash' => 'trash_comment',
           'comment_status_changed' => 'transition_comment_status',
         );
         $actions = $default_actions + $additional_actions;
@@ -982,10 +962,6 @@ if (!empty($purge_varnish_action)) {
 
                 case 'transition_comment_status':
                     add_action($action, array($purge_varnish, 'purge_varnish_comment_status_trigger'), 10, 3);
-                    break;
-
-                case 'trash_comment':
-                    add_action($action, array($purge_varnish, 'purge_varnish_comment_trash_trigger'));
                     break;
 
                 case 'wp_update_nav_menu':

@@ -1,9 +1,10 @@
 === Purge Varnish Cache ===
 Contributors: devavi
+Donate link: http://avantikayadav.com/donate.html
 Tags: varnish, purge, cache, caching, flush, speed, plugin, wp-cache, performance, fast, automatic
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.0.5
+Tested up to: 4.8
+Stable tag: 1.0.6
 License: GPLv2 or later
 
 Automate purge Varnish cache when post content on your site is created or modified and also allow you to purge Varnish cache manually.
@@ -11,22 +12,16 @@ Automate purge Varnish cache when post content on your site is created or modifi
 
 == Description ==
 
-Purge Varnish Cache provides integration between your WordPress site and multiple Varnish Cache servers. Purge Varnish Cache sends a PURGE request to the URL of a page or post every time when post content is created or modified. This occurs when editing, publishing, commenting or deleting an post item, menu items, front page and when changing themes. Varnish is a web application accelerator also known as a caching HTTP reverse proxy.
+Purge Varnish Cache provides integration between your WordPress site and multiple Varnish Cache servers. Purge Varnish Cache sends a PURGE request to the URL of a page or post every time based on configured actions and trigger by site administrator. Varnish is a web application accelerator also known as a caching HTTP reverse proxy.
 
 <strong>Features:</strong>
 
-*   Minimum configuration.
-*   admin-socket integration and Varnish admin interface for status etc.
-*   Unlimited number of Varnish Cache servers
-*   Configurable actions upon events that will expire URLs from varnish cache like reverse proxy caches.
-	*   The front page.
-	*   The post/page created/updated/status changed.
-	*   Any categories or tags associated with the page.
-	*   The menu created/updated.
-	*   Changing theme.
+*   One time configuration.
+*   admin-socket integration and Varnish admin interface for status.
+*   Purge from N number of Varnish Cache servers
 *   Purge custom URLs.
-*   Purge multiple URLs manually from Varnish cache.
-*   Purge whole site cache manually.
+*   Manual Purge.
+*   One click purge all.
 *   Debugging.
 
 <strong>Requirements:</strong> Apache sockets module/extention should be enabled.
@@ -41,8 +36,7 @@ Purge Varnish Cache provides integration between your WordPress site and multipl
 
 *   Go to your admin area and select Plugins -> Add new from the menu.
 *   Search for "Purge Varnish" or download
-*   Click install.
-*   Click activate.
+*   Click install and then click on activate link.
 
 <strong>How to configure settings?</strong>
 
@@ -55,15 +49,19 @@ Purge Varnish Cache provides integration between your WordPress site and multipl
 
 <strong>How can I check everything's working?</strong>
 
-It is not difficult. You should install this pluing and configure varnish terminal setting by accessing the link: DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-settings. If you have the status 'Varnish running' means everything iss working perfectly!
+It is not difficult. Install this plugin and configure Terminal settings using below link.
+DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-settings. 
+
+If status is 'Varnish running' means everything is working perfectly!
 
 <strong>What versions of Varnish is supported?</strong>
 
-it is supported all varnish versions of 3.x and 4.x
+Currently it is supporting all varnish versions of 3.x, 4.x, 5.x
 
 <strong>How do I manually purge a single URL from varnish cache?</strong>
 
-Click the 'Purge URLs' link or access the link DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-urls. This interface allow you to purge 1 to 7 urls.
+Click on 'Purge URLs' link or access below link.
+DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-urls.
 
 <strong>What if I have multiple varnish Servers/IPs?</strong>
 
@@ -71,15 +69,22 @@ You need to configure multiple IPs in Varnish Control Terminal textfield in 'Ter
 
 <strong>How can I debug?</strong>
 
-You need to add this constant <strong>define('WP_VARNISH_PURGE_DEBUG', true);</strong> in wp-config.php file. It will generate the log file 'purge_varnish_log.txt' inside uploads directory.
+Add below constant in wp-config.php file.
+<strong>define('WP_VARNISH_PURGE_DEBUG', true);</strong>
+
+It will generate a log file 'purge_varnish_log.txt' inside uploads directory.
 
 <strong>How do I manually purge the whole site cache?</strong>
 
-Click on link 'Purge all' or access the link: DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-all and Click on 'Purge All' button.
+Clicking on link 'Purge all' or access below link: 
+DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-all.
 
 <strong>What it purge?</strong>
 
-Basically by default it purge nothing. It allow you to decide and configure expire setting. So you no need to worry. Click on 'Expire' link or access the link: DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-expire to configure purge expire setting.
+It allow you to configure purge settings.
+Please configure by clicking on Expire link or accessing below link.
+DOMAIN_NAME/wp-admin/admin.php?page=purge-varnish-expire to configure purge expire setting.Clicking on Expire link 
+
 
 
 == Screenshots ==
@@ -96,15 +101,15 @@ Basically by default it purge nothing. It allow you to decide and configure expi
 
 6. Purge whole site cache.
 
-7. Purge URLs screen to purge urls manually from varnish cache. 
+7. Purge URLs screen to purge URLs manually from varnish cache. 
 
 
 == ChangeLog ==
 
-= 1.0.4 =
+= 1.0.6 =
 
-Enable expire configuration automatically when plug in enabled.
-Add more tags.
+Implement Trigger to purge/post on comment approved/unapproved
+Fix: Wrong number of arguments
 Update screens.
 
 = 1.0.5 =
@@ -112,6 +117,15 @@ Update screens.
 Purge Custom URLs
 Update screens.
 
+= 1.0.4 =
+
+Enable expire configuration automatically when plug in enabled.
+Add more tags.
+Update screens.
+
 = Version 2.x =
 
-* PHP 4.x/5.x compatibility.
+* PHP 4.x/5.x/6.x/7.x compatibility.
+
+== Upgrade notice ==
+....
