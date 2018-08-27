@@ -107,7 +107,7 @@ class Purge_Varnish {
         if (!extension_loaded('sockets')) {
             $logdata = 'You need to enable/install sockets module.';
             $this->purge_varnish_debug($basedir, $logdata);
-            error_log($log, 0);
+            error_log($logdata, 0);
             return false;
         }
 
